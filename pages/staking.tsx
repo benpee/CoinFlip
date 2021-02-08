@@ -18,7 +18,8 @@ export default function Staking() {
 
     let daysValue = input.days;
     const rangeStatus = input.status === "unlocked" ? true : false;
-    
+    let increment = (input.days * 0.1447).toFixed(3);
+    let total = (1.135 * (input.days * 0.1447)).toFixed(3)
     return (
         <Layout>
             <div>
@@ -31,31 +32,29 @@ export default function Staking() {
                         0xa29367a3f057F3191b62bd405584a33411892b6</a>
                     </p>
                 </div>
-                <div className=" border-gray-700 justify-evenly text-center">
-                    <div className="text-opacity-50 text-blue border-gray-200 border-solid">
-                        <p>
-                            <span className="mx-8">UNLOCKED</span>
-                            <span className="mx-8">LOCKED</span>
-                        </p>
-                        <p className="text-white justify-evenly">
-                            <span className="mx-10">0</span>
-                            <span className="-mx-35">0</span>
-                        </p>
-                    </div>                                        
-            </div>
-            <div>
+                <div>
+                    <table className="text-opacity-50 border border-collapse items-center text-center text-blue">
+                        <tr className="bg-gray-700">
+                            <th>UNLOCKED</th>
+                            <th>LOCKED</th>
+                        </tr>
+                        <tr className="text-white">
+                            <td className="mx-10">0</td>
+                            <td className="-mx-35">0</td>
+                        </tr>
+                    </table>                                        
+                </div>
                 <form>
-                    <div className="py-10 m-y300 justify-evenly flex-row">
-                        <div className="inputNum mx-40">
-                            <p><input type="number" placeholder="Amount" name="amount" className="amount" onChange={handleChange} size={4} disabled  /></p>
-                            <p> {handleChange} available</p>
-                        </div>
-                        <div className="border-solid border-gray-600 text-blue">
-                            <input type="radio" name="status" value="unlocked" checked={input.status === "unlocked"} onChange={handleChange} /> Unlocked <br />
-                            <input type="radio"  name="status" value="locked" onChange={handleChange} checked={input.status === "locked"} /> Locked
-                        </div>
-                        </div>
-                        <div className="text-white text-center">
+                    <div className="justify-center mx-40 text-white flex-row content-center">
+                        <p><input type="number" placeholder="Amount" name="amount" className="amount p-1 rounded" onChange={handleChange} size={8} disabled  />
+                        <div>
+                            <input type="radio" className="text-blue" name="status" value="unlocked" checked={input.status === "unlocked"} onChange={handleChange} /> Unlocked <br />
+                            <input type="radio" className="text-blue" name="status" value="locked" onChange={handleChange} checked={input.status === "locked"} /> Locked
+                            </div>                                                
+                        </p>
+                        <p> {handleChange} available</p>
+                    </div>                    
+                    <div className="text-white text-center">
                         <p> 
                             If you choose to lock your stake, the longer you do so, the more boost
                             it will have when calculating rewards. Staking unlocked LP tokens doesn't
@@ -64,14 +63,14 @@ export default function Staking() {
                         </p>
                         <h3 className="text-center">DAYS</h3>
                         <input type="range" name="days"  id="range" disabled={rangeStatus} onChange={handleChange} min="7" max="1025" />
-                        <input type="number" className="rangeText" size={3} disabled value={daysValue} />
+                        <input type="number" className="rangeText mx-3 pl-2 rounded" size={3} disabled value={daysValue} />
                         <br/>
-                        1.013x (time) x 1.135x (CR) <br/> <strong>= 1.150x (total)</strong>
+                        <p className="my-5">{increment}x (time) x 1.135x (CR) <br/> <span className="my-2 text-xl">= {total}x (total)</span></p>
                         <br/>
-                        <button type="submit"> CONNECT WALLET </button>
-                        </div>
-                    </form>
-                </div>
+                        <button type="submit" className="text-black my-20 bg-gray-100 rounded-md px-3 py-1" disabled> CONNECT WALLET </button>
+                        <a href="docs.frax.finance/staking" target="_blank" className="text-right text-blue">Help</a>
+                    </div>
+                </form>
             </div>
         </Layout>
     );
